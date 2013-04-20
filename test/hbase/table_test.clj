@@ -16,11 +16,20 @@
 				(type table)  
 				org.apache.hadoop.hbase.client.HTable))))
 
-(hbase.table/put table "k1" "f2" {"c2" "zebra"})
-(hbase.table/put table "k1" "f2"  "c3" "panda")
+(clojure.test/deftest put-1
+	(clojure.test/testing "Test put operation with hash-map data"
+		(clojure.test/is
+			(=
+				(hbase.table/put table "k1" "f2" {"c2" "zebra"})
+				nil))))
 
-(comment
-(clojure.test/deftest put
-	(clojure.test/testing "Test put operation"
-		(clojure.test/is)))
-)
+(clojure.test/deftest put-2
+	(clojure.test/testing "Test put operation with a single key value pair"
+		(clojure.test/is
+			(=
+				(hbase.table/put table "k1" "f2"  "c3" "panda")
+				nil))))
+
+
+
+

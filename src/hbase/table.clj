@@ -9,13 +9,13 @@
 (defmulti put (fn[& arglist] (count arglist)))
 
 (defmethod put 4 [self rowkey column-family data]
-    (let [p (Put. (Bytes/toBytes rowkey))]
-        (doseq [[column-name value] data]
-            (.add p
-                (Bytes/toBytes (str column-family))
-                (Bytes/toBytes (str column-name))
-                (Bytes/toBytes (str value))))
-        (.put self p)))
+	(let [p (Put. (Bytes/toBytes rowkey))]
+		(doseq [[column-name value] data]
+			(.add p
+				(Bytes/toBytes (str column-family))
+				(Bytes/toBytes (str column-name))
+				(Bytes/toBytes (str value))))
+		(.put self p)))
 
 (defmethod put 5 [self rowkey column-family column-name value]
     (let [p (Put. (Bytes/toBytes rowkey))]

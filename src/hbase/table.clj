@@ -1,7 +1,7 @@
 (ns hbase.table
 	(:gen-class)
 	(:import [org.apache.hadoop.hbase.util Bytes]
-			 [org.apache.hadoop.hbase.client Put Get HTable]))
+	         [org.apache.hadoop.hbase.client Put Get HTable]))
 
 (defn connect [name config] 
 	(HTable. config name))

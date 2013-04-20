@@ -1,5 +1,6 @@
 (ns hbase.table
 	(:gen-class)
+	(:refer-clojure :exclude [get])
 	(:import [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable]))
 

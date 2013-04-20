@@ -1,7 +1,7 @@
 (ns hbase.table-test
   (:require [clojure.test]
             [hbase.config]
-			[hbase.table]))
+            [hbase.table]))
 
 (def config 
 	(hbase.config/create))

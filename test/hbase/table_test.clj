@@ -1,7 +1,9 @@
 (ns hbase.table-test
-  (:require [clojure.test]
-            [hbase.config]
-            [hbase.table]))
+	(:import [org.apache.hadoop.hbase KeyValue]
+		[org.apache.hadoop.hbase.util Bytes])
+	(:require [clojure.test]
+		[hbase.config]
+		[hbase.table]))
 
 (def config 
 	(hbase.config/create))
@@ -31,5 +33,12 @@
 				nil))))
 
 
+(prn 
+	(hbase.table/get table "k1"))
 
+(prn
+    (hbase.table/get table "k1", "f2"))
+
+(prn
+    (hbase.table/get table "k1", "f2", "c3"))
 

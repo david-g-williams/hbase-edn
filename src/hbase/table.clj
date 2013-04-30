@@ -5,10 +5,11 @@
 	(:import [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable]))
 
-(defn connect [name config]
-	(if (not= config nil) 
-		(HTable. config name)
-		(HTable. (hbase.config/create) name)))
+(defn connect
+	([name] 
+		(HTable. (hbase.config/create) name))
+	([name config] 
+		(HTable. config name)))
 
 (defn create-put [rowkey] 
 	(Put. (Bytes/toBytes rowkey)))

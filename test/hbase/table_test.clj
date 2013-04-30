@@ -32,7 +32,6 @@
 				(hbase.table/put table "k1" "f2"  "c3" "panda")
 				nil))))
 
-
 (prn 
 	(hbase.table/get table "k1"))
 
@@ -41,4 +40,7 @@
 
 (prn
     (hbase.table/get table "k1", "f2", "c3"))
+
+
+
 

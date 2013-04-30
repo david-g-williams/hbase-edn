@@ -36,14 +36,13 @@
 			(Bytes/toBytes (str value)))
 		(.put self p)))
 
-(defn get-to-map [get]
-	(let [key-values (-> get .raw seq) return (ref {})]
+(defn get-to-map [result]
+	(let [key-values (seq (.raw result)) return (ref {})]
 		(doseq [key-value key-values]
 			(dosync
 				(alter return assoc-in [
 					(Bytes/toString (.getFamily key-value))
-					(Bytes/toString (.getQualifier key-value)) 
-					(.getTimestamp key-value)]
+					(Bytes/toString (.getQualifier key-value))]
 						(Bytes/toString (.getValue key-value)))))
 		@return))
 
@@ -57,15 +56,24 @@
 (defmethod get 3 [self rowkey column-family]
 	(let [get-operation (create-get rowkey)]
 		(.addFamily get-operation (Bytes/toBytes column-family))
-		(get-to-map
-			(.get self get-operation))))
+		(clojure.core/get
+			(get-to-map 
+				(.get self get-operation)) 
+			column-family)))
 
 (defmethod get 4 [self rowkey column-family column-name]
 	(let [get-operation (create-get rowkey)]
 		(.addColumn get-operation
 			(Bytes/toBytes column-family)
 			(Bytes/toBytes column-name))
-		(get-to-map
-			(.get self get-operation))))
+		(clojure.core/get 
+			(clojure.core/get 
+				(get-to-map 
+					(.get self get-operation)) 
+				column-family) 
+			column-name)))
+
+
+
 
 

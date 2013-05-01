@@ -8,22 +8,17 @@ A Clojure library for interacting with HBase.
               [hbase.schema]
               [hbase.table])
         
-Create a config object with an optional map of additional options.
+Create a config object.  The first argument can also be a map of additional key value pairs.
 
-    (def config
-        (hbase.config/create))
+    (def config (hbase.config/create))
 
-    (def config 
-        (hbase.config/create additional-options))
-
-Create a table.
+Create a table
 
     (hbase.schema/create-table config "t1" "f1" "f2")
     
-Connect to the table, config argument is optional.
+Connect to the table, config argument is optional
 
-    (def table 
-        (hbase.table/connect "t1" config))
+    (def table (hbase.table/connect "t1" config))
     
 Insert records
 

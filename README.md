@@ -12,11 +12,13 @@ Create a config object.  The first argument can also be a map of additional key 
 
     (def config (hbase.config/create))
 
-Create a table
+Create a table, config is optional
 
-    (hbase.schema/create-table config "t1" "f1" "f2")
+    (hbase.schema/create-table "t1" "f1" "f2" "f3")
     
-Connect to the table, config argument is optional
+    (hbase.schema/create-table config "t1" "f1" "f2" "f3")
+    
+Connect to the table, config is optional
 
     (def table (hbase.table/connect "t1"))
     

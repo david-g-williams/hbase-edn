@@ -8,9 +8,11 @@ A Clojure library for interacting with HBase.
               [hbase.schema]
               [hbase.table])
         
-Create a config object.  The first argument can also be a map of additional key value pairs.
+Create a config object.  Optionally takes a map of additional key value pairs.
 
     (def config (hbase.config/create))
+    
+    (def config (hbase.config/create additional-params))
 
 Create a table
 

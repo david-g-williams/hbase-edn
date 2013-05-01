@@ -5,36 +5,40 @@ A Clojure library for interacting with HBase.
 ## Usage
 
     (:require [hbase.config]
+              [hbase.schema]
               [hbase.table])
         
-Create a config object with an optional map of overrides
+Create a config object with an optional map of additional options
 
     (def config
         (hbase.config/create))
 
-    (def config
+    (def config 
         (hbase.config/create additional-options))
 
-Connect to a table, config argument is optional 
+Create a table
 
-    (def table
-        (hbase.table/connect "t1"))
+    (hbase.schema/create-table config "t1" "f1" "f2")
+    
+Connect to the table, config argument is optional 
 
-    (def table
+    (def table 
         (hbase.table/connect "t1" config))
     
-Put records in a table, there is a 4 argument and 5 argument version
-the 4 argument version inserts multiple column-name value pairs from a map
-the 5 argument version inserts a single column-name value pair
+Insert records
+
+The four argument version inserts multiple column-name value pairs from a map.  
+The five argument version inserts a single column-name value pair
 
     (hbase.table/put table "k1" "f2" {"c2" "zebra" "c3" "panda"})
 
     (hbase.table/put table "k1" "f2"  "c3" "panda")
 
-Get the records back out, there are 3 forms
-2 argument form: get a map of maps of column-families column-names and values associated with the rowkey
-3 argument form: get a map of column-names and values associated with a rowkey and column-family
-4 argument form: get a values associate with a rowkey column-family and column-name
+Retrieve records
+
+The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey
+The three argument form retreives a map of column-names and column-values associated with a rowkey and column-family.  
+The four argument form retreives the column-value associated with a rowkey, column-family and column-name
 
     (hbase.table/get table "k1")
 

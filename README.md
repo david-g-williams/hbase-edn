@@ -12,16 +12,12 @@ Create a config object.  The first argument can also be a map of additional key 
 
     (def config (hbase.config/create))
 
-Create a table, config is optional
+Create a table
 
-    (hbase.schema/create-table "t1" "f1" "f2" "f3")
+    (hbase.schema/create-table "t1" "f1" "f2" "f3" config)
     
-    (hbase.schema/create-table config "t1" "f1" "f2" "f3")
-    
-Connect to the table, config is optional
+Connect to a table
 
-    (def table (hbase.table/connect "t1"))
-    
     (def table (hbase.table/connect "t1" config))
     
 Insert records
@@ -30,9 +26,9 @@ The four argument version inserts multiple column-name value pairs from a map.
 The five argument version inserts a single column-name value pair.  
 
     (hbase.table/put table "k1" "f2" {"c2" "zebra" "c3" "panda"})
-
+    
     (hbase.table/put table "k1" "f2"  "c3" "panda")
-
+    
 Retrieve records
 
 The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey.  

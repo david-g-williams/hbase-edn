@@ -8,7 +8,7 @@ A Clojure library for interacting with HBase.
               [hbase.schema]
               [hbase.table])
         
-Create a config object with an optional map of additional options
+Create a config object with an optional map of additional options.
 
     (def config
         (hbase.config/create))
@@ -16,11 +16,11 @@ Create a config object with an optional map of additional options
     (def config 
         (hbase.config/create additional-options))
 
-Create a table
+Create a table.
 
     (hbase.schema/create-table config "t1" "f1" "f2")
     
-Connect to the table, config argument is optional 
+Connect to the table, config argument is optional.
 
     (def table 
         (hbase.table/connect "t1" config))
@@ -28,7 +28,7 @@ Connect to the table, config argument is optional
 Insert records
 
 The four argument version inserts multiple column-name value pairs from a map.  
-The five argument version inserts a single column-name value pair
+The five argument version inserts a single column-name value pair.  
 
     (hbase.table/put table "k1" "f2" {"c2" "zebra" "c3" "panda"})
 
@@ -36,9 +36,9 @@ The five argument version inserts a single column-name value pair
 
 Retrieve records
 
-The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey
+The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey.  
 The three argument form retreives a map of column-names and column-values associated with a rowkey and column-family.  
-The four argument form retreives the column-value associated with a rowkey, column-family and column-name
+The four argument form retreives the column-value associated with a rowkey, column-family and column-name.  
 
     (hbase.table/get table "k1")
 

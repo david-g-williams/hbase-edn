@@ -1,6 +1,6 @@
-# hbase-client
+# hbase
 
-A Clojure library for interacting with HBase.
+A Clojure library for interacting with HBase. 
 
 ## Usage
 

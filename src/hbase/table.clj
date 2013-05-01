@@ -5,11 +5,8 @@
 	(:import [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable]))
 
-(defn connect
-	([name] 
-		(HTable. (hbase.config/create) name))
-	([name config] 
-		(HTable. config name)))
+(defn connect [name config] 
+	(HTable. config name))
 
 (defn create-put [rowkey] 
 	(Put. (Bytes/toBytes rowkey)))
@@ -72,6 +69,20 @@
 					(.get self get-operation)) 
 				column-family) 
 			column-name)))
+
+(defn scan [table]
+	
+
+
+)
+
+
+
+
+
+
+
+
 
 
 

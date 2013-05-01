@@ -18,6 +18,8 @@ Create a table
     
 Connect to the table, config argument is optional
 
+    (def table (hbase.table/connect "t1"))
+    
     (def table (hbase.table/connect "t1" config))
     
 Insert records

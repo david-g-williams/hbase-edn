@@ -10,6 +10,8 @@ A Clojure library for interacting with HBase.
         
 #### Create a config 
 
+This connects to your ZooKeeper
+
     (def config (hbase.config/create))
 
 #### Create a table

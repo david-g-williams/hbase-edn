@@ -3,7 +3,7 @@
 	(:refer-clojure :exclude [get])
 	(:require [hbase.config])
 	(:import [org.apache.hadoop.hbase.util Bytes]
-	         [org.apache.hadoop.hbase.client Put Get HTable]))
+	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
 
 (defn connect [name config] 
 	(HTable. config name))
@@ -43,7 +43,7 @@
 						(Bytes/toString (.getValue key-value)))))
 		@return))
 
-(defmulti get (fn[& arglist] (count arglist)))
+(defmulti get (fn [& arglist] (count arglist)))
 
 (defmethod get 2 [self rowkey]
 	(let [get-operation (create-get rowkey)]
@@ -70,12 +70,15 @@
 				column-family) 
 			column-name)))
 
-(defn scan [table]
-	
 
+(defmulti scan (fn [table & args] (map class args)))
 
-)
-
+(defmethod scan [java.lang.String java.lang.String] [table start-key end-key]
+	(let [scan (Scan. (Bytes/toBytes start-key) (Bytes/toBytes end-key)) result-scanner (.getScanner table scan)]
+		#(let [result (.next result-scanner)]
+			(if (not= result nil)
+				[(Bytes/toString (.getRow result)) (get-to-map result)]
+				nil))))	
 
 
 

@@ -2,6 +2,8 @@
 
 A Clojure library for interacting with HBase. 
 
+    :dependencies [[hbase "0.1.0"]]
+    
 ## Usage
 
     (:require [hbase.config]

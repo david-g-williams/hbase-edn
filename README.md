@@ -31,9 +31,9 @@ The five argument version inserts a single column-name value pair.
     
 #### Get
 
-The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey.  
-The three argument form retreives a map of column-names and column-values associated with a rowkey and column-family.  
-The four argument form retreives the column-value associated with a rowkey, column-family and column-name.  
+The two argument form returns a map of maps of column-families, column-names and column-values values associated with the rowkey.  
+The three argument form returns a map of column-names and column-values associated with a rowkey and column-family.  
+The four argument form returns the column-value associated with a rowkey, column-family and column-name.  
 
     (hbase.table/get table "k1")
 

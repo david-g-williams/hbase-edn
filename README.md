@@ -57,20 +57,14 @@ The four argument form returns the column-value associated with a rowkey, column
 
 ##### Specific families
 
-    (let [cursor (hbase.table/scan table "k1" "kn" ["f1" "f2"])]
-        (loop [result (cursor)]
-            (when (not= nil result)
-                (prn result)
-                (recur (cursor)))))
-
+    (hbase.table/scan table "k1" "kn" ["f1" "f2"])
+    
 ##### Specific Columns
 
-    (let [cursor (hbase.table/scan table "k1" "kn" {"f1" ["c1" "c2"] "f3" ["c5" "c7"]})]
-        (loop [result (cursor)]
-            (when (not= nil result)
-                (prn result)
-                (recur (cursor)))))
-
+    (hbase.table/scan table "k1" "kn" 
+        {"f1" ["c1" "c2"] 
+         "f3" ["c5" "c7"]})
+    
 ## License
 
 Copyright © 2013 David Williams

@@ -59,14 +59,26 @@
 				(hbase.table/get table "k1" "f2" "c2")
 			 	"zebra"))))
 
-
 (let [cursor (hbase.table/scan table "k1" "r2")] 
 	(loop [result (cursor)]
 		(when (not= nil result)
 			(prn result)
 			(recur (cursor)))))
 
-				
+(let [cursor (hbase.table/scan table "k1" "r2" ["f2"])] 
+	(loop [result (cursor)]
+		(when (not= nil result)
+			(prn result)
+			(recur (cursor)))))
+
+(let [cursor (hbase.table/scan table "k1" "r2" {"f2" ["c2"]})] 
+	(loop [result (cursor)]
+		(when (not= nil result)
+			(prn result)
+			(recur (cursor)))))
+
+
+			
 
 
 

@@ -47,8 +47,8 @@ Scan a table
 
     (let [cursor (hbase.table/scan table "k1" "r2")]
         (loop [result (cursor)]
-            (prn result)
-            (if (not= nil result)
+            (when (not= nil result)
+                (prn result)
                 (recur (cursor)))))
 
 ## License

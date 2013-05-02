@@ -45,7 +45,7 @@ The four argument form retreives the column-value associated with a rowkey, colu
     
 Scan a table
 
-    (let [cursor (hbase.table/scan table "k1" "r2")]
+    (let [cursor (hbase.table/scan table "k1" "kn")]
         (loop [result nil]
             (let [result (cursor)]
                 (do-something result)

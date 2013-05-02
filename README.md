@@ -11,8 +11,6 @@ A Clojure library for interacting with HBase.
 #### Create a config 
 
     (def config (hbase.config/create))
-    
-    (def config (hbase.config/create additional-params))
 
 #### Create a table
 

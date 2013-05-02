@@ -3,7 +3,8 @@
 	(:refer-clojure :exclude [get])
 	(:require [hbase.config])
 	(:import [org.apache.hadoop.hbase.util Bytes]
-	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
+	         [org.apache.hadoop.hbase.client Put Get HTable Scan]
+			 [clojure.lang PersistentArrayMap PersistentVector]))
 
 (defn connect [name config] 
 	(HTable. config name))
@@ -71,15 +72,31 @@
 			column-name)))
 
 
+(defn result-scan-iterator [result-scanner]
+	#(let [result (.next result-scanner)]
+		(if (not= result nil)
+			[(Bytes/toString (.getRow result)) (get-to-map result)]
+			nil)))
+
 (defmulti scan (fn [table & args] (map class args)))
 
-(defmethod scan [java.lang.String java.lang.String] [table start-key end-key]
+(defmethod scan [String String] [table start-key end-key]
 	(let [scan (Scan. (Bytes/toBytes start-key) (Bytes/toBytes end-key)) result-scanner (.getScanner table scan)]
-		#(let [result (.next result-scanner)]
-			(if (not= result nil)
-				[(Bytes/toString (.getRow result)) (get-to-map result)]
-				nil))))	
+		(result-scan-iterator result-scanner)))
 
+(defmethod scan [String String PersistentVector] [table start-key end-key column-families]
+	(let [scan (Scan. (Bytes/toBytes start-key) (Bytes/toBytes end-key))]
+		(doseq [family column-families]
+			(.addFamily scan (Bytes/toBytes family)))
+		(result-scan-iterator (.getScanner table scan))))
+
+(defmethod scan [String String PersistentArrayMap] [table start-key end-key column-map]
+	(let [scan (Scan. (Bytes/toBytes start-key) (Bytes/toBytes end-key))]
+		(doseq [[column-family column-names] column-map]
+			(let [column-family-bytes (Bytes/toBytes column-family)]
+				(doseq [column-name column-names]
+					(.addColumn scan column-family-bytes (Bytes/toBytes column-name)))))
+		(result-scan-iterator (.getScanner table scan))))
 
 
 

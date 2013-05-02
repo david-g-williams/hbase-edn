@@ -22,7 +22,7 @@ A Clojure library for interacting with HBase.
 
     (def table (hbase.table/connect "t1" config))
     
-#### Put records
+#### Put
 
 The four argument version inserts multiple column-name value pairs from a map.  
 The five argument version inserts a single column-name value pair.  
@@ -31,7 +31,7 @@ The five argument version inserts a single column-name value pair.
     
     (hbase.table/put table "k1" "f2"  "c3" "panda")
     
-#### Get records
+#### Get
 
 The two argument form retrieves a map of maps of column-families, column-names and column-values values associated with the rowkey.  
 The three argument form retreives a map of column-names and column-values associated with a rowkey and column-family.  

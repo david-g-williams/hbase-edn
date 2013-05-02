@@ -55,11 +55,11 @@ The four argument form returns the column-value associated with a rowkey, column
                 (prn result)
                 (recur (cursor)))))
 
-##### Specific families
+##### Specified families
 
     (hbase.table/scan table "k1" "kn" ["f1" "f2"])
     
-##### Specific Columns
+##### Specified columns
 
     (hbase.table/scan table "k1" "kn" 
         {"f1" ["c1" "c2"] 

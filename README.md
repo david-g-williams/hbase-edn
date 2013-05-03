@@ -12,7 +12,7 @@ A Clojure library for interacting with HBase.
         
 #### Create a config 
 
-This connects to your ZooKeeper
+Connects to ZooKeeper
 
     (def config (hbase.config/create))
 
@@ -22,7 +22,9 @@ This connects to your ZooKeeper
     
 #### Connect to a table
 
-    (def table (hbase.table/connect "t1" config))
+Returns an HTable
+
+    (hbase.table/connect "t1" config)
     
 #### Put
 

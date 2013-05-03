@@ -49,6 +49,8 @@ The four argument form returns the column-value associated with a rowkey, column
     
 #### Scan
 
+Scan returns a function
+
 ##### All familes
 
     (let [cursor (hbase.table/scan table "k1" "kn")]

@@ -6,16 +6,11 @@
 		[hbase.table]
 		[hbase.schema]))
 
-(def config 
-	(hbase.config/create))
-
-(hbase.schema/create-table "t4" "f1" "f2" "f3" "f4" "f5" config)
-
-(def table 
-	(hbase.table/connect "t4" config))
- 
-(clojure.test/deftest connect
+(clojure.test/deftest create-table
 	(clojure.test/testing "HBase table create."
+		(def config (hbase.config/create))
+		(hbase.schema/create-table "t4" "f1" "f2" "f3" "f4" "f5" config)
+		(def table (hbase.table/connect "t4" config))
 		(clojure.test/is 
 			(= 
 				(type table)  
@@ -110,13 +105,28 @@
 							"penguin")))
 				(recur (cursor)))))))
 
+(clojure.test/deftest drop-table
+    (clojure.test/testing "Dropping table"
+		(clojure.test/is 
+			(= 
+				(hbase.schema/drop-table "t4" config)
+				nil))))
 
+(defn test-ns-hook []
+	(create-table)
+	(put-4)
+	(put-5)
+	(get-2)
+	(get-3)
+	(get-4)
+	(scan-2)
+	(scan-3)
+	(scan-4)
+	(drop-table))
+
+ 
 
 
 			
-
-
-
-
 
 

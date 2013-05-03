@@ -5,7 +5,4 @@
 
 (def config (hbase.config/create))
 
-(hbase.schema/create-table "t3" "f1" "f2" "f3" config)
-
-
 

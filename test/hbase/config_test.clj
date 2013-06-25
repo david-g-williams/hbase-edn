@@ -1,13 +1,10 @@
 (ns hbase.config-test
-  (:require [clojure.test]
-            [hbase.config]))
+	(:use [clojure.test])
+  	(:require [hbase.config]))
 
-(clojure.test/deftest create-test
-	(clojure.test/testing "Create a new hbase configuration."
-		(clojure.test/is
-			(= 
-				(type (hbase.config/create))
-				org.apache.hadoop.conf.Configuration))))
+(deftest create-test
+	(testing "Creating a new hbase configuration should create an object of the correct type."
+		(is (= (type (hbase.config/create)) org.apache.hadoop.conf.Configuration))))
 
 
 

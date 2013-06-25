@@ -6,7 +6,7 @@
 	(let [config (HBaseConfiguration/create)]
 		(if (not= options nil)
 			(doseq [[key value] options]
-	        	(.set config key value)))
+				(.set config key value)))
 		config)) 
 
 

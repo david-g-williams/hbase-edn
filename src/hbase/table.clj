@@ -4,7 +4,12 @@
 	(:require [hbase.config])
 	(:import [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable Scan]
-			 [clojure.lang PersistentArrayMap PersistentVector]))
+	         [clojure.lang PersistentArrayMap PersistentVector]))
+
+;; todo 
+;; put with timestamp
+;; get with timestamp(s)
+;; delete 
 
 (defn connect [name config] 
 	(HTable. config name))
@@ -41,7 +46,7 @@
 				(alter return assoc-in [
 					(Bytes/toString (.getFamily key-value))
 					(Bytes/toString (.getQualifier key-value))]
-						(Bytes/toString (.getValue key-value)))))
+					(Bytes/toString (.getValue key-value)))))
 		@return))
 
 (defmulti get (fn [& arglist] (count arglist)))
@@ -70,7 +75,6 @@
 					(.get self get-operation)) 
 				column-family) 
 			column-name)))
-
 
 (defn result-scan-iterator [result-scanner]
 	#(let [result (.next result-scanner)]

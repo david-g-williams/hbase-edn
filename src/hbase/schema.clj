@@ -7,13 +7,11 @@
 (defn create-table [table-name & arguments]
 	(let [arguments (vec arguments) admin (HBaseAdmin. (peek arguments)) descriptor (HTableDescriptor. table-name) column-families (pop arguments)]
 		(doseq  [column-family column-families]
-			(.addFamily descriptor
-				(HColumnDescriptor. column-family)))
+			(.addFamily descriptor (HColumnDescriptor. column-family)))
 		(try
 			(.createTable admin descriptor)
 			(catch Exception e 
-				(prn 
-					(str "create-table exception: " (.getMessage e)))))))
+				(println (str "create-table exception: " (.getMessage e)))))))
 
 (defn drop-table [table-name config]
 	(let [admin (HBaseAdmin. config) table-name-bytes (Bytes/toBytes table-name)]

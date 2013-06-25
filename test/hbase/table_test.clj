@@ -1,127 +1,80 @@
 (ns hbase.table-test
-	(:import [org.apache.hadoop.hbase KeyValue]
-		[org.apache.hadoop.hbase.util Bytes])
-	(:require [clojure.test]
-		[hbase.config]
-		[hbase.table]
-		[hbase.schema]))
+	(:use [clojure.test])
+	(:require [hbase.config]
+	          [hbase.table]
+	          [hbase.schema]))
 
-(clojure.test/deftest create-table
-	(clojure.test/testing "HBase table create."
+(deftest create-table
+	(testing "Creating an Hbase table should create an object of the correct type."
 		(def config (hbase.config/create))
 		(hbase.schema/create-table "t4" "f1" "f2" "f3" "f4" "f5" config)
 		(def table (hbase.table/connect "t4" config))
-		(clojure.test/is 
-			(= 
-				(type table)  
-				org.apache.hadoop.hbase.client.HTable))))
+		(is (= (type table) org.apache.hadoop.hbase.client.HTable))))
 
-(clojure.test/deftest put-4
-	(clojure.test/testing "Test put operation with hash-map data"
-		(clojure.test/is
-			(=
-				(hbase.table/put table "k1" "f1" {"c1" "zebra" "c2" "penguin"})
-				nil))))
+(deftest put-four
+	(testing "Inserting data with the four argument put should not generate an exception."
+		(is (= (hbase.table/put table "k1" "f1" {"c1" "zebra" "c2" "penguin"}) nil))))
 
-(clojure.test/deftest put-5
-	(clojure.test/testing "Test put operation with a single key value pair"
-		(clojure.test/is
-			(=
-				(hbase.table/put table "k1" "f2" "c1" "panda")
-				nil))))
+(deftest put-five
+	(testing "Inserting data with the five argument put should not generate an exception."
+		(is (= (hbase.table/put table "k1" "f2" "c1" "panda") nil))))
 
-(clojure.test/deftest get-2
-	(clojure.test/testing "Get hbase record by table and rowkey"
-		(clojure.test/is 
-			(=
-				(get 
-					(get 
-						(hbase.table/get table "k1") 
-						"f1") 
-					"c1")
-			 	"zebra"))))
+(deftest get-two
+	(testing "Two argument get should return previously inserted values."
+		(is (= (get (get (hbase.table/get table "k1") "f1") "c1") "zebra"))))
 
-(clojure.test/deftest get-3
-	(clojure.test/testing "Get hbase record by table, rowkey and column-family"
-		(clojure.test/is 
-			(=
-				(get 
-					(hbase.table/get table "k1" "f1") 
-					"c1")
-			 	"zebra"))))
+(deftest get-three
+	(testing "Three argument get should return previously inserted values."
+		(is (= (get (hbase.table/get table "k1" "f1") "c1") "zebra"))))
 
-(clojure.test/deftest get-4
-	(clojure.test/testing "Get hbase record by table, rowkey, column-family and column-name"
-		(clojure.test/is 
-			(=
-				(hbase.table/get table "k1" "f1" "c1")
-			 	"zebra"))))
+(deftest get-four
+	(testing "Four argument get should return previously inserted values."
+		(is (= (hbase.table/get table "k1" "f1" "c1") "zebra"))))
 
-(clojure.test/deftest scan-2
-	(clojure.test/testing "Scan rows between k1 and k2"
+(deftest scan-two
+	(testing "Two argument scan should return the rows between k1 and k2"
 		(let [cursor (hbase.table/scan table "k1" "k2")] 
 			(loop [result (cursor)]
-				(when (not= nil result)
-				(let [[row-key hash-map] result]
-					(clojure.test/is
-						(= row-key "k1"))
-					(clojure.test/is
-						(=
-							(get
-								(get hash-map "f1")
-								"c1")
-							"zebra")))
-				(recur (cursor)))))))
+				(if (not= nil result)
+					(let [[row-key hash-map] result]
+						(is (= row-key "k1"))
+						(is (= (get (get hash-map "f1") "c1") "zebra")))
+					(recur (cursor)))))))
 
-(clojure.test/deftest scan-3
-	(clojure.test/testing "Scan rows between k1 and k2"
+(deftest scan-three
+	(testing "Three argument scan should return the specified column families for rows between k1 and k2"
 		(let [cursor (hbase.table/scan table "k1" "k2" ["f1" "f2"])] 
 			(loop [result (cursor)]
-				(when (not= nil result)
-				(let [[row-key hash-map] result]
-					(clojure.test/is 
-						(= row-key "k1"))
-					(clojure.test/is
-						(=
-							(get
-								(get hash-map "f2")
-								"c1")
-							"panda")))
-				(recur (cursor)))))))
+				(if (not= nil result)
+					(let [[row-key hash-map] result]
+						(is (= row-key "k1"))
+						(is (= (get (get hash-map "f2") "c1") "panda")))
+					(recur (cursor)))))))
 
-(clojure.test/deftest scan-4
-	(clojure.test/testing "Scan rows between k1 and k2"
+(deftest scan-four
+	(testing "Four argument scan should return the specified columns for rows between k1 and k2"
 		(let [cursor (hbase.table/scan table "k1" "k2" {"f1" ["c2"] "f2" ["c2"]})] 
 			(loop [result (cursor)]
-				(when (not= nil result)
-				(let [[row-key hash-map] result]
-					(clojure.test/is
-						(= row-key "k1"))
-					(clojure.test/is
-						(=
-							(get
-								(get hash-map "f1")
-								"c2")
-							"penguin")))
-				(recur (cursor)))))))
+				(if (not= nil result)
+					(let [[row-key hash-map] result]
+						(is (= row-key "k1"))
+						(is (= (get (get hash-map "f1") "c2") "penguin")))
+					(recur (cursor)))))))
 
-(clojure.test/deftest drop-table
-    (clojure.test/testing "Dropping table"
-		(clojure.test/is 
-			(= 
-				(hbase.schema/drop-table "t4" config)
-				nil))))
+(deftest drop-table
+    (testing "Dropping a table should not create an exception"
+		(is (= (hbase.schema/drop-table "t4" config) nil))))
 
 (defn test-ns-hook []
 	(create-table)
-	(put-4)
-	(put-5)
-	(get-2)
-	(get-3)
-	(get-4)
-	(scan-2)
-	(scan-3)
-	(scan-4)
+	(put-four)
+	(put-five)
+	(get-two)
+	(get-three)
+	(get-four)
+	(scan-two)
+	(scan-three)
+	(scan-four)
 	(drop-table))
 
  

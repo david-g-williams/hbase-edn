@@ -3,8 +3,7 @@
 	(:refer-clojure :exclude [get])
 	(:require [hbase.config])
 	(:import [org.apache.hadoop.hbase.util Bytes]
-	         [org.apache.hadoop.hbase.client Put Get HTable Scan]
-	         [clojure.lang PersistentArrayMap PersistentVector]))
+	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
 
 ;; todo 
 ;; put with timestamp

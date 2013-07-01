@@ -6,9 +6,9 @@
 
 (deftest create-table
 	(testing "Creating an Hbase table should create an object of the correct type."
-		(def config (hbase.config/create))
+		(def config (hbase.config/test))
 		(hbase.schema/create-table "t4" "f1" "f2" "f3" "f4" "f5" config)
-		(def table (hbase.table/connect "t4" config))
+		(def table (hbase.table/new "t4" config))
 		(is (= (type table) org.apache.hadoop.hbase.client.HTable))))
 
 (deftest put-four

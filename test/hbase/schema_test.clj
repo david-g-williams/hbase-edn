@@ -3,6 +3,5 @@
 	(:require [hbase.config]
 	          [hbase.schema]))
 
-(def config (hbase.config/create))
 
 

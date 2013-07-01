@@ -4,10 +4,7 @@
 
 (deftest create-test
 	(testing "Creating a new hbase configuration should create an object of the correct type."
-		(is (= (type (hbase.config/create)) org.apache.hadoop.conf.Configuration))))
-
-
-
+		(is (= (type (hbase.config/new)) org.apache.hadoop.conf.Configuration))))
 
 
 

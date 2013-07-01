@@ -1,8 +1,8 @@
 (ns hbase.table
 	(:gen-class)
 	(:refer-clojure :exclude [get])
-	(:require [hbase.config])
-	(:import [org.apache.hadoop.hbase.util Bytes]
+	(:import [clojure.lang PersistentVector PersistentArrayMap] 
+	         [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
 
 ;; todo 
@@ -10,7 +10,7 @@
 ;; get with timestamp(s)
 ;; delete 
 
-(defn connect [name config] 
+(defn new [name config] 
 	(HTable. config name))
 
 (defn create-put [rowkey] 

@@ -1,5 +1,7 @@
 # hbase
 
+[![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
+
 A Clojure library for interacting with HBase. 
 
     :dependencies [[hbase "0.1.0"]]

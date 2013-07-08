@@ -57,7 +57,7 @@
 
 (defmethod get 3 [self rowkey column-family]
 	(let [get-operation (create-get rowkey)]
-		(.addFamily get-operation (Bytes/toBytes column-family))
+		(.addFamily get-operation (Bytes/toBytes ^String column-family))
 		(clojure.core/get
 			(get-to-map 
 				(.get self get-operation)) 

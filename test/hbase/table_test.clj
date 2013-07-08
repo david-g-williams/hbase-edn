@@ -2,11 +2,21 @@
 	(:use [clojure.test])
 	(:require [hbase.config]
 	          [hbase.table]
-	          [hbase.schema]))
+	          [hbase.schema])
+	(:import [org.apache.hadoop.hbase HBaseTestingUtility]))
+
+(defn test-config [& options]
+	(let [testing-utility (HBaseTestingUtility.)]
+		(.startMiniCluster testing-utility 1)
+		(let [config (.getConfiguration testing-utility)]
+			(if (not= options nil)
+				(doseq [[key value] options]
+					(.set config key value)))
+			config)))
 
 (deftest create-table
 	(testing "Creating an Hbase table should create an object of the correct type."
-		(def config (hbase.config/test))
+		(def config (test-config))
 		(hbase.schema/create-table "t4" "f1" "f2" "f3" "f4" "f5" config)
 		(def table (hbase.table/new "t4" config))
 		(is (= (type table) org.apache.hadoop.hbase.client.HTable))))
@@ -62,7 +72,7 @@
 					(recur (cursor)))))))
 
 (deftest drop-table
-    (testing "Dropping a table should not create an exception"
+	(testing "Dropping a table should not create an exception"
 		(is (= (hbase.schema/drop-table "t4" config) nil))))
 
 (defn test-ns-hook []

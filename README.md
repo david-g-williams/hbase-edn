@@ -51,7 +51,7 @@ The four argument form returns the column-value associated with a rowkey, column
     
 #### Scan
 
-Scan returns a function
+Scan returns a function representing an iterator over the scan results.  The iterator returns nil when exhausted.
 
 ##### All familes
 

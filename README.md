@@ -4,7 +4,7 @@
 
 A Clojure library for interacting with HBase. 
 
-    :dependencies [[hbase "0.1.5"]]
+    :dependencies [[hbase "0.1.6"]]
     
 ## Usage
 
@@ -30,10 +30,13 @@ Returns an HTable
     
 #### Put
 
+The three argument version inserts multiple column-family column-name value pairs from a map.  
 The four argument version inserts multiple column-name value pairs from a map.  
 The five argument version inserts a single column-name value pair.  
 
-    (hbase.table/put table "k1" "f2" {"c2" "zebra" "c3" "panda"})
+    (hbase.table/put table "k1" {"f1" {"c0" "racoon" "c1" "penguin"} "f2" {"c2" "zebra" "c3" "panda"}})
+    
+	(hbase.table/put table "k1" "f2" {"c2" "zebra" "c3" "panda"})
     
     (hbase.table/put table "k1" "f2"  "c3" "panda")
     

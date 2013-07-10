@@ -6,6 +6,7 @@
 	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
 
 ;; todo 
+;; put 3 (done)
 ;; put with timestamp
 ;; get with timestamp(s)
 ;; delete 
@@ -21,13 +22,24 @@
 
 (defmulti put (fn[& arglist] (count arglist)))
 
+(defmethod put 3 [self rowkey payload]
+	(let [p (create-put rowkey)]
+		(doseq [[column-family data] payload]
+			(let [column-family-bytes (Bytes/toBytes (str column-family))]
+				(doseq [[column-name value] data]
+					(.add p
+						column-family-bytes
+						(Bytes/toBytes (str column-name))
+						(Bytes/toBytes value)))))
+		(.put self p)))
+
 (defmethod put 4 [self rowkey column-family data]
 	(let [p (create-put rowkey)]
 		(doseq [[column-name value] data]
 			(.add p
 				(Bytes/toBytes (str column-family))
 				(Bytes/toBytes (str column-name))
-				(Bytes/toBytes (str value))))
+				(Bytes/toBytes value)))
 		(.put self p)))
 
 (defmethod put 5 [self rowkey column-family column-name value]
@@ -35,7 +47,7 @@
 		(.add p
 			(Bytes/toBytes (str column-family))
 			(Bytes/toBytes (str column-name))
-			(Bytes/toBytes (str value)))
+			(Bytes/toBytes value))
 		(.put self p)))
 
 (defn get-to-map [result]

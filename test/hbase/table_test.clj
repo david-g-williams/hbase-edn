@@ -21,6 +21,13 @@
 		(def table (hbase.table/new "t4" config))
 		(is (= (type table) org.apache.hadoop.hbase.client.HTable))))
 
+(deftest put-three
+    (testing "Inserting data with the three argument put should not generate an exception."
+	        (is (= (hbase.table/put table 
+				"k0" {
+					"f1" {"c1" "zebra" "c2" "penguin"}
+					"f2" {"c3" "racoon" "c4" 17}}) nil))))
+
 (deftest put-four
 	(testing "Inserting data with the four argument put should not generate an exception."
 		(is (= (hbase.table/put table "k1" "f1" {"c1" "zebra" "c2" "penguin"}) nil))))
@@ -28,6 +35,10 @@
 (deftest put-five
 	(testing "Inserting data with the five argument put should not generate an exception."
 		(is (= (hbase.table/put table "k1" "f2" "c1" "panda") nil))))
+
+(deftest get-two-from-put-three
+	(testing "Two argument get should return previously inserted values."
+		(is (= (get (get (hbase.table/get table "k0") "f2") "c4") 17))))
 
 (deftest get-two
 	(testing "Two argument get should return previously inserted values."

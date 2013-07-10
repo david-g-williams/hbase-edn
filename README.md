@@ -4,7 +4,7 @@
 
 A Clojure library for interacting with HBase. 
 
-    :dependencies [[hbase "0.1.0"]]
+    :dependencies [[hbase "0.1.5"]]
     
 ## Usage
 
@@ -14,9 +14,9 @@ A Clojure library for interacting with HBase.
         
 #### Create a config 
 
-Connects to ZooKeeper
+Connects to ZooKeeper using hbase-site.xml
 
-    (def config (hbase.config/create))
+    (def config (hbase.config/new))
 
 #### Create a table
 
@@ -26,7 +26,7 @@ Connects to ZooKeeper
 
 Returns an HTable
 
-    (hbase.table/connect "t1" config)
+    (hbase.table/new "t1" config)
     
 #### Put
 
@@ -51,7 +51,7 @@ The four argument form returns the column-value associated with a rowkey, column
     
 #### Scan
 
-Scan returns a function
+Scan returns a function representing an iterator over the scan results.  The iterator returns nil when exhausted.
 
 ##### All familes
 

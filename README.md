@@ -3,7 +3,9 @@
 Note: this build is tested and works well.  The build failure appears related to travis-ci for which I have opened this ticket:
 https://github.com/travis-ci/travis-ci/issues/1232
 
+
 [![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
+
 
 A Clojure library for interacting with HBase. 
 

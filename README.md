@@ -5,6 +5,8 @@ The behavior tests for this project are currently failing due to an un-handled r
 
 https://issues.apache.org/jira/browse/HBASE-8944
 
+The tests pass on Mac OSX but not CentOS.  That said, the code in this projects works as documented below.
+
 [![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
 
 

@@ -1,6 +1,5 @@
 (ns hbase.config
 	(:gen-class)
-	(:refer-clojure :exclude [test])
   	(:import [org.apache.hadoop.hbase HBaseConfiguration]))
 
 (defn new [& options]

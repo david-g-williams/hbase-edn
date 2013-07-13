@@ -1,5 +1,9 @@
 # hbase
 
+2013-06-13
+The behavior tests for this build are currently failing due to an un-handled runtime exception in the HBaseTestingUtility.
+
+https://issues.apache.org/jira/browse/HBASE-8944
 
 [![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
 

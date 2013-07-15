@@ -1,7 +1,8 @@
 # hbase
 
 2013-06-13
-The behavior tests for this project are currently failing due to an un-handled runtime exception in MiniDFSCluster.java which is part of the HBaseTestingUtility.
+The behavior tests for this project are currently failing due to an un-handled runtime exception in 
+MiniDFSCluster.java which is part of the Hadoop core and used by the HBaseTestingUtility.
 
 https://issues.apache.org/jira/browse/HBASE-8944
 

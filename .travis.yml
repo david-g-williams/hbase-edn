@@ -1,3 +1,5 @@
 language: clojure
-script: lein2 test
+script: lein test
 lein: lein2
+before_install: umask 022
+

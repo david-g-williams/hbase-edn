@@ -4,11 +4,9 @@
 	:url "https://github.com/mobiusinversion/hbase"
 	:dependencies [
 		[org.clojure/clojure "1.5.1"]
-		[org.apache.hadoop/hadoop-core "1.1.2"]
-		;; [org.apache.hbase/hbase "0.94.6.1"]
+		[org.apache.hadoop/hadoop-core "1.2.0"]
 		[org.apache.hbase/hbase "0.94.9"]
-		[org.apache.hadoop/hadoop-test "1.1.2"]
-		;; [org.apache.hbase/hbase "0.94.6.1" :classifier "tests"]
+		[org.apache.hadoop/hadoop-test "1.2.0"]
 		[org.apache.hbase/hbase "0.94.9" :classifier "tests"]]
 	:plugins [[lein-marginalia "0.7.1"]])
 

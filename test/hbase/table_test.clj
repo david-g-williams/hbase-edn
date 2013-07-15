@@ -6,9 +6,6 @@
 	          [hbase.schema])
 	(:import [org.apache.hadoop.hbase HBaseTestingUtility]))
 
-(defn set-umask []
-	(sh "umask" "022"))
-
 (defn test-config [& options]
 	(let [testing-utility (HBaseTestingUtility.)]
 		(.startMiniCluster testing-utility 1)
@@ -91,7 +88,6 @@
 		(is (= (hbase.schema/drop-table "t4" config) nil))))
 
 (defn test-ns-hook []
-	(set-umask)
 	(create-table)
 	(put-four)
 	(put-five)

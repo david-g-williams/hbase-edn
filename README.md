@@ -1,12 +1,10 @@
 # hbase
 
-2013-06-13
-The behavior tests for this project are currently failing due to an un-handled runtime exception in 
-MiniDFSCluster.java which is part of the Hadoop core and used by the HBaseTestingUtility.
+To run the unit tests, please make sure your system has umask 022.  See
 
-https://issues.apache.org/jira/browse/HBASE-8944
+https://issues.apache.org/jira/browse/HDFS-2556
 
-The tests pass on Mac OSX but not CentOS.  That said, the code in this project works as documented below.
+For more info.
 
 [![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
 

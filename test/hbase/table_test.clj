@@ -1,6 +1,5 @@
 (ns hbase.table-test
-	(:use [clojure.test]
-	      [clojure.java.shell :only [sh]])
+	(:use [clojure.test])
 	(:require [hbase.config]
 	          [hbase.table]
 	          [hbase.schema])

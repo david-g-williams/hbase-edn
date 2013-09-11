@@ -6,7 +6,7 @@ https://issues.apache.org/jira/browse/HDFS-2556
 
 [![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
 
-A Clojure library for interacting with HBase. 
+A Clojure library for interacting with HBase in Clojure EDN syntax. 
 
     :dependencies [[hbase "0.1.6"]]
     

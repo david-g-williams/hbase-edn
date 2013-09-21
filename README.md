@@ -4,8 +4,6 @@ To run the unit tests, please make sure your system has umask 022.
 
 https://issues.apache.org/jira/browse/HDFS-2556
 
-[![Build Status](https://travis-ci.org/mobiusinversion/hbase.png)](https://travis-ci.org/mobiusinversion/hbase)
-
 A Clojure library for interacting with HBase in Clojure EDN syntax. 
 
     :dependencies [[hbase "0.1.6"]]

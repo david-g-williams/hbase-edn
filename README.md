@@ -1,4 +1,4 @@
-# hbase
+# hbase-edn
 
 To run the unit tests, please make sure your system has umask 022.
 

@@ -5,12 +5,6 @@
 	         [org.apache.hadoop.hbase.util Bytes]
 	         [org.apache.hadoop.hbase.client Put Get HTable Scan]))
 
-;; todo 
-;; put 3 (done)
-;; put with timestamp
-;; get with timestamp(s)
-;; delete 
-
 (defn new [name config] 
 	(HTable. config name))
 
@@ -112,14 +106,3 @@
 				(doseq [column-name column-names]
 					(.addColumn scan column-family-bytes (Bytes/toBytes column-name)))))
 		(result-scan-iterator (.getScanner table scan))))
-
-
-
-
-
-
-
-
-
-
-
